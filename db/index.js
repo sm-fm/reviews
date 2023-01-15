@@ -19,6 +19,7 @@ const execute = async (query) => {
   }
 };
 
+// changed to recommended to recommend
 const review = `
   CREATE TABLE IF NOT EXISTS review (
     review_id INT,
@@ -155,91 +156,118 @@ const alterMeta = `
     ADD FOREIGN KEY(characteristics_id)
       REFERENCES characteristics(characteristics_id);`;
 
+const alterReview = `
+  ALTER TABLE review
+    ADD product_id INT,
+    ADD FOREIGN KEY(product_id)
+      REFERENCES all_reviews(product_id);`;
+
 execute(review)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(all_reviews);
-  })
+  });
+
+execute(all_reviews)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(photos);
-  })
+  });
+
+execute(photos)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(fit);
-  })
+  });
+
+execute(fit)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(length);
-  })
+  });
+
+execute(length)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(comfort);
-  })
+  });
+
+execute(comfort)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(quality);
-  })
+  });
+
+execute(quality)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(characteristics);
-  })
+  });
+
+execute(characteristics)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(recommended);
-  })
+  });
+
+execute(recommended)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(ratings);
-  })
+  });
+
+execute(ratings)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(meta);
-  })
+  });
+
+execute(meta)
   .then(result => {
     if (result) {
       console.log('Table created');
     }
-    return execute(alterChars);
-  })
+  });
+
+execute(alterChars)
   .then(result => {
     if (result) {
       console.log('Table altered');
     }
-    return execute(alterRecommended);
-  })
+  });
+
+execute(alterRecommended)
   .then(result => {
     if (result) {
       console.log('Table altered');
     }
-    return execute(alterRatings);
-  })
+  });
+
+execute(alterRatings)
   .then(result => {
     if (result) {
       console.log('Table altered');
     }
-    return execute(alterMeta);
-  })
+  });
+
+execute(alterMeta)
+  .then(result => {
+    if (result) {
+      console.log('Table altered');
+    }
+  });
+
+execute(alterReview)
   .then(result => {
     if (result) {
       console.log('Table altered');
