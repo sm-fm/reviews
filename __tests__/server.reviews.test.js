@@ -19,6 +19,4 @@ describe('Testing Home Route', function () {
     const res = await request(app).get('/');
     expect(res.statusCode).toBe(302);
   });
-
-
 });
