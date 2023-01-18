@@ -15,6 +15,41 @@ const upload = multer({ dest: 'uploads/' });
 const deleteData = require('./controllers/deleteData.js');
 const compression = require('compression');
 
+//CSV work
+const csv = require('fast-csv');
+const fs = require('fs');
+const db = require('../db/index');
+
+// const parser = parse({columns: true}, (err, records) => {
+//   records.forEach(record => {
+//     db.query(`INSERT INTO review2(id, rating, summary, recommend, response, body, date, reviewer_name,
+//       helpfulness, reported, reviewer_email, product_id) VALUES ("${record.id}", "${record.rating}",
+//       "${record.summary}", "${record.recommend}", "${record.response}", "${record.body}", "${record.date}",
+//       "${record.reviewer_name}", "${record.helpfulness}", "${record.reported}", "${record.reviewer_email}",
+//       "${record.product_id}");`);
+//   });
+// });
+// if (row.length === 12) {
+//   db.query(`INSERT INTO review2(id, rating, summary, recommend, response, body, date, reviewer_name,
+//     helpfulness, reported, reviewer_email, product_id) VALUES ("${row[0]}", "${row[1]}",
+//     "${row[2]}", "${row[3]}", "${row[4]}", "${row[5]}", "${row[6]}",
+//     "${row[7]}", "${row[8]}", "${row[9]}", "${row[10]}",
+//     "${row[11]}");`);
+// }
+let rows = [];
+fs.createReadStream('/Users/seanmcdaniel/hack-reactor-rpp2207/sdc-data/reviews.csv')
+  .pipe(csv.parse({headers: true}))
+  .on('data', (row) => {
+    rows.push(row);
+  })
+  .on('end', () => {
+    db.bulkCreate(rows);
+    console.log('finished');
+  })
+  .on('error', (err) => {
+    console.log(err.message);
+  });
+
 app.use(express.json());
 app.use(cors()); // Not sure if needed
 app.use(compression())
