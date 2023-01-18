@@ -1,4 +1,5 @@
-const axios = require('axios')
+const axios = require('axios');
+const models = require('../models/reviews');
 
 exports.redirectFromHome = (req, res) => {
 
@@ -159,4 +160,16 @@ exports.getCart = (req, res) => {
     console.log(err);
     res.status(500).send(err)
   })
+}
+
+exports.getReviews = (req, res) => {
+  const { id } = req.body;
+  models.getReviews(id)
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(e => {
+      console.log(e);
+      res.sendStatus(500);
+    });
 }
