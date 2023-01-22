@@ -44,7 +44,8 @@
     "react-icons": "^4.7.1",
     "react-toastify": "^9.1.1",
     "request": "^2.88.2",
-    "sinon": "^15.0.0"
+    "sinon": "^15.0.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

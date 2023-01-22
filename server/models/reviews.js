@@ -1,5 +1,6 @@
 const db = require('../../db/index.js');
 const Promise = require('bluebird');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
   getReviews: (id) => {
@@ -128,9 +129,10 @@ module.exports = {
 
   addReview: (data) => {
     let date = new Date().getTime();
-    return db.query(`INSERT INTO reviews (product_id, rating, date, summary, body, recommend,
+    const id = uuidv4();
+    return db.query(`INSERT INTO reviews (id, product_id, rating, date, summary, body, recommend,
       reviewer_name, reviewer_email) VALUES ($1, $2, $3, $4, $5,
-        $6, $7, $8)`, [data.product_id, data.rating, date, data.summary, data.body, data.recommend,
+        $6, $7, $8, $9)`, [id, data.product_id, data.rating, date, data.summary, data.body, data.recommend,
         data.name, data.email]);
   },
 
