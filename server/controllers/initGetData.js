@@ -163,10 +163,23 @@ exports.getCart = (req, res) => {
   })
 }
 
+// Sean SDC
+
 exports.getReviews = (req, res) => {
   const id = req.query.id;
-  console.log('this is id: ', id)
   models.getReviews(id)
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(e => {
+      console.log(e);
+      res.sendStatus(500);
+    });
+}
+
+exports.getReviewMeta = (req, res) => {
+  const id = req.query.id;
+  models.getReviewMetaData(id)
     .then(result => {
       res.status(200).send(result);
     })

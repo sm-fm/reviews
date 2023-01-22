@@ -1,4 +1,5 @@
 const axios = require('axios');
+const models = require('../models/reviews');
 
 exports.putHelpClick = (req, res) => {
 
@@ -145,3 +146,14 @@ exports.deleteCart = (req,res) => {
   })
 }
 
+exports.addHelpClick = (req, res) => {
+  const review_id = req.body.review_id;
+  models.addHelpClick(review_id)
+    .then(result => {
+      res.status(204).send(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+}

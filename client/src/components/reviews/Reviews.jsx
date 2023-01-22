@@ -56,7 +56,7 @@ const Reviews = (props) => {
   const forceUpdate = useForceUpdate();
 
   const handleFormSubmit = (object) => {
-    // console.log('this is the form object:', object);
+    console.log('this is the form object:', object);
     var revSubmission = object;
     axios.post('/submitReview', revSubmission)
     .then((success) => {

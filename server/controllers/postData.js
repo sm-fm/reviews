@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cloudinary = require('../cloudinary');
 const uploader = require('../multer');
+const models = require('../models/reviews');
 
 exports.postReviewForm = (req, res) => {
 
@@ -127,5 +128,18 @@ exports.postAddToCart = (req, res) => {
     console.log('failure in the api add to cart: ', error);
     res.status(500).send(error);
   });
+}
+
+// Sean SDC
+exports.addReviewToDB = (req, res) => {
+  data = req.body;
+  models.addReview(data)
+    .then(result => {
+      res.sendStatus(201);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 }
 

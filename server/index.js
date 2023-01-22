@@ -37,9 +37,9 @@ app.get('/getProductStyles', initGetData.getProductStylesControl);
 
 app.get('/getProductRelated', initGetData.getProductRelatedControl);
 
-app.get('/getProductReviews', initGetData.getReviews);
+app.get('/getProductReviews', initGetData.getProductReviewsControl);
 
-app.get('/getProductReviewMeta', initGetData.getProductReviewMeta);
+app.get('/getProductReviewMeta', initGetData.getReviewMeta);
 
 app.get('/getProductQnA', initGetData.getProductQnAControl);
 
@@ -73,4 +73,7 @@ app.put('/reportAnswer', putData.answerReported);
 
 //Reviews DB testing
 app.get('/dbreviews', initGetData.getReviews);
+app.get('/dbmeta', initGetData.getReviewMeta);
+app.post('/addreview', postData.addReviewToDB);
+app.put('/addHelp', putData.addHelpClick);
 
