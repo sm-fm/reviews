@@ -26,6 +26,7 @@
   "homepage": "https://github.com/rpp2207-amalthea/reviews#readme",
   "dependencies": {
     "axios": "^1.1.3",
+    "bluebird": "^3.7.2",
     "chai-dom": "^1.11.0",
     "cloudinary": "^1.33.0",
     "compression": "^1.7.4",

@@ -37,7 +37,7 @@ app.get('/getProductStyles', initGetData.getProductStylesControl);
 
 app.get('/getProductRelated', initGetData.getProductRelatedControl);
 
-app.get('/getProductReviews', initGetData.getProductReviewsControl);
+app.get('/getProductReviews', initGetData.getReviews);
 
 app.get('/getProductReviewMeta', initGetData.getProductReviewMeta);
 

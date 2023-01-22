@@ -92,6 +92,7 @@ exports.getProductRelatedControl = (req, res) => {
 exports.getProductReviewsControl = (req, res) => {
 
   var incomingParamProductId = req.query.id;
+  console.log(incomingParamProductId);
 
   const options = {
     method: 'GET',
@@ -163,7 +164,8 @@ exports.getCart = (req, res) => {
 }
 
 exports.getReviews = (req, res) => {
-  const { id } = req.body;
+  const id = req.query.id;
+  console.log('this is id: ', id)
   models.getReviews(id)
     .then(result => {
       res.status(200).send(result);

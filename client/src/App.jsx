@@ -196,6 +196,7 @@ const App = () => {
       .then(function (response) {
         // console.log('CHAIN 4: Tony Module - SUCCESS GET PRODUCT REVIEWS DATA: ', response.data);
         // TODO: Manipulate and pass down response.data into module...
+        console.log('this is the response:', response);
         var reviews = response.data.results;
         setReviewList(reviews);
         var average = getAverageRating(reviews);
