@@ -139,5 +139,9 @@ module.exports = {
   addHelpClick: (review_id) => {
     return db.query(`UPDATE reviews SET helpfulness = helpfulness::int + 1 WHERE id =
     $1`, [review_id]);
+  },
+
+  reportReview: (review_id) => {
+    return db.query(`UPDATE reviews SET reported = 'true' WHERE id = $1`, [review_id]);
   }
 };

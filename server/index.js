@@ -76,4 +76,5 @@ app.get('/dbreviews', initGetData.getReviews);
 app.get('/dbmeta', initGetData.getReviewMeta);
 app.post('/addreview', postData.addReviewToDB);
 app.put('/addHelp', putData.addHelpClick);
+app.put('/reportreview', putData.reportReview);
 
