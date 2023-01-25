@@ -179,7 +179,8 @@ exports.getReviews = (req, res) => {
 }
 
 exports.getReviewMeta = (req, res) => {
-  const id = req.query.id;
+  // const id = req.query.id;
+  const { id } = req.body;
   models.getReviewMetaData(id)
     .then(result => {
       res.status(200).send(result);

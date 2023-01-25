@@ -132,13 +132,13 @@ exports.postAddToCart = (req, res) => {
 
 // Sean SDC
 exports.addReviewToDB = (req, res) => {
-  data = req.body;
+  const data = req.body;
   models.addReview(data)
     .then(result => {
       res.sendStatus(201);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       res.sendStatus(500);
     });
 }

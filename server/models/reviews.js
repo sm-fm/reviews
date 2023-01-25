@@ -4,7 +4,8 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
   getReviews: (id) => {
-    console.log('from model', id);
+    if (!id) throw 'Missing product id';
+
     return db.query(`SELECT json_build_object(
       'product_id', ${id},
       'page', 0,
@@ -47,6 +48,8 @@ module.exports = {
   },
 
   getReviewMetaData: (id) => {
+    if (!id) throw 'Missing product id';
+
     let data = {};
     return db.query(`SELECT json_build_object(
       'product_id', ${id},
@@ -122,12 +125,13 @@ module.exports = {
         return data;
       })
       .catch(err => {
-        console.log(err);
         return err;
       });
   },
 
   addReview: (data) => {
+    if (!data.product_id) throw 'Missing product_id';
+
     let date = new Date().getTime();
     const id = uuidv4();
     return db.query(`INSERT INTO reviews (id, product_id, rating, date, summary, body, recommend,
@@ -137,11 +141,13 @@ module.exports = {
   },
 
   addHelpClick: (review_id) => {
+    if (!review_id) throw 'Missing review_id';
     return db.query(`UPDATE reviews SET helpfulness = helpfulness::int + 1 WHERE id =
     $1`, [review_id]);
   },
 
   reportReview: (review_id) => {
+    if (!review_id) throw 'Missing review_id';
     return db.query(`UPDATE reviews SET reported = 'true' WHERE id = $1`, [review_id]);
   }
 };
