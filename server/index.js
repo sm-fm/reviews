@@ -22,7 +22,7 @@ app.use(compression())
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/ip/:id', express.static(__dirname + '/../client/dist'));
-app.listen(3000, () => console.log('Our Server is listening on port 3000...'));
+// module.exports = app.listen(3000, () => console.log('Our Server is listening on port 3000...'));
 
 // ROUTES
 
@@ -78,3 +78,4 @@ app.post('/addreview', postData.addReviewToDB);
 app.put('/addHelp', putData.addHelpClick);
 app.put('/reportreview', putData.reportReview);
 
+module.exports = app.listen(3000, () => console.log('Our Server is listening on port 3000...'));

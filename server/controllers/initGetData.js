@@ -166,7 +166,8 @@ exports.getCart = (req, res) => {
 // Sean SDC
 
 exports.getReviews = (req, res) => {
-  const id = req.query.id;
+  // const id = req.query.id;
+  const { id } = req.body;
   models.getReviews(id)
     .then(result => {
       res.status(200).send(result);
