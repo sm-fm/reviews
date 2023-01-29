@@ -4,8 +4,6 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
   getReviews: (id) => {
-    if (!id) throw 'Missing product id';
-
     return db.query(`SELECT json_build_object(
       'product_id', ${id},
       'page', 0,
@@ -28,28 +26,29 @@ module.exports = {
                   'id', id,
                   'url', url
                 )
-              ) FROM photos WHERE product_id = $1
+              ) FROM photos WHERE product_id = $1 LIMIT 5
             )
           )
-        ) FROM reviews WHERE product_id = $1
+        ) FROM reviews WHERE product_id = $1 LIMIT 10
       ));`, [id])
       .then((result) => {
+        // console.log(result.rows[0].json_build_object);
         var resultsObj = result.rows[0].json_build_object;
-          resultsObj.results.forEach(result => {
-            if (result.photos === null) result.photos = [];
-            result.date = new Date(Number(result.date));
-          });
-        return result.rows[0].json_build_object;
+        resultsObj.results.forEach(result => {
+          if (result.photos === null) {
+            result.photos = [];
+          }
+          result.date = new Date(Number(result.date));
+        });
+        // return result.rows[0].json_build_object;
+        return resultsObj;
       })
-      .catch(e => {
-        console.log(e);
-        return e;
-      });
+      // .catch(e => {
+      //   return e;
+      // });
   },
 
   getReviewMetaData: (id) => {
-    if (!id) throw 'Missing product id';
-
     let data = {};
     return db.query(`SELECT json_build_object(
       'product_id', ${id},
@@ -88,50 +87,45 @@ module.exports = {
         return db.query(`SELECT value FROM char WHERE product_id = $1 AND name = 'Fit'`, [id])
       })
       .then(result => {
-        var count = 0;
+        var count1 = 0;
         result.rows.forEach(row => {
-          count += Number(row.value);
+          count1 += Number(row.value);
         });
         data.characteristics = {};
         data.characteristics.Fit = {};
-        data.characteristics.Fit.value = count / result.rows.length;
+        data.characteristics.Fit.value = count1 / result.rows.length || 0;
         return db.query(`SELECT value FROM char WHERE product_id = $1 AND name = 'Length'`, [id])
       })
       .then(result => {
-        var count = 0;
+        var count2 = 0;
         result.rows.forEach(row => {
-          count += Number(row.value);
+          count2 += Number(row.value);
         });
         data.characteristics.Length = {};
-        data.characteristics.Length.value = count / result.rows.length;
+        data.characteristics.Length.value = count2 / result.rows.length || 0;
         return db.query(`SELECT value FROM char WHERE product_id = $1 AND name = 'Comfort'`, [id])
       })
       .then(result => {
-        var count = 0;
+        var count3 = 0;
         result.rows.forEach(row => {
-          count += Number(row.value);
+          count3 += Number(row.value);
         });
         data.characteristics.Comfort = {};
-        data.characteristics.Comfort.value = count / result.rows.length;
+        data.characteristics.Comfort.value = count3 / result.rows.length || 0;
         return db.query(`SELECT value FROM char WHERE product_id = $1 AND name = 'Quality'`, [id])
       })
       .then(result => {
-        var count = 0;
+        var count4 = 0;
         result.rows.forEach(row => {
-          count += Number(row.value);
+          count4 += Number(row.value);
         });
         data.characteristics.Quality = {};
-        data.characteristics.Quality.value = count / result.rows.length;
+        data.characteristics.Quality.value = count4 / result.rows.length || 0;
         return data;
-      })
-      .catch(err => {
-        return err;
       });
   },
 
   addReview: (data) => {
-    if (!data.product_id) throw 'Missing product_id';
-
     let date = new Date().getTime();
     const id = uuidv4();
     return db.query(`INSERT INTO reviews (id, product_id, rating, date, summary, body, recommend,
@@ -141,13 +135,11 @@ module.exports = {
   },
 
   addHelpClick: (review_id) => {
-    if (!review_id) throw 'Missing review_id';
     return db.query(`UPDATE reviews SET helpfulness = helpfulness::int + 1 WHERE id =
     $1`, [review_id]);
   },
 
   reportReview: (review_id) => {
-    if (!review_id) throw 'Missing review_id';
     return db.query(`UPDATE reviews SET reported = 'true' WHERE id = $1`, [review_id]);
   }
 };

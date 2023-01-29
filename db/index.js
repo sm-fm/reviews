@@ -9,8 +9,6 @@ const pool = new Pool ({
   idleTimeoutMillis: 1000
 });
 
-// client.connect();
-
 module.exports = {
   query: (text, values) => {
     return pool.query(text, values);
