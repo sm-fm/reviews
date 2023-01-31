@@ -32,20 +32,19 @@ module.exports = {
         ) FROM reviews WHERE product_id = $1 LIMIT 10
       ));`, [id])
       .then((result) => {
-        // console.log(result.rows[0].json_build_object);
         var resultsObj = result.rows[0].json_build_object;
-        resultsObj.results.forEach(result => {
-          if (result.photos === null) {
-            result.photos = [];
-          }
-          result.date = new Date(Number(result.date));
-        });
-        // return result.rows[0].json_build_object;
+        if (resultsObj.results !== null) {
+          resultsObj.results.forEach(result => {
+            if (result.photos === null) {
+              result.photos = [];
+            }
+            result.date = new Date(Number(result.date));
+          });
+        } else {
+          resultsObj.results = [];
+        }
         return resultsObj;
       })
-      // .catch(e => {
-      //   return e;
-      // });
   },
 
   getReviewMetaData: (id) => {
