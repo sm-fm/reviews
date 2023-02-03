@@ -17,33 +17,22 @@ module.exports = {
             'recommend', recommend,
             'response', response,
             'body', body,
-            'date', date,
+            'date', (SELECT to_char(to_timestamp(date::bigint/1000), 'YYYY-MM-DD"T"HH24:MI:SS"Z"')),
             'reviewer_name', reviewer_name,
             'helpfulness', helpfulness,
             'photos', (
-              SELECT json_agg(
+              SELECT coalesce (json_agg(
                 json_build_object(
                   'id', id,
                   'url', url
                 )
-              ) FROM photos WHERE product_id = $1 LIMIT 5
+              ), '[]'::json) FROM photos WHERE photos.review_id = reviews.id
             )
           )
-        ) FROM reviews WHERE product_id = $1 LIMIT 10
+        ) FROM reviews WHERE product_id = $1
       ));`, [id])
       .then((result) => {
-        var resultsObj = result.rows[0].json_build_object;
-        if (resultsObj.results !== null) {
-          resultsObj.results.forEach(result => {
-            if (result.photos === null) {
-              result.photos = [];
-            }
-            result.date = new Date(Number(result.date));
-          });
-        } else {
-          resultsObj.results = [];
-        }
-        return resultsObj;
+        return result.rows[0].json_build_object;
       })
   },
 
