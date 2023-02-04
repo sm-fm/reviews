@@ -1,11 +1,11 @@
 const Pool = require('pg-pool');
 const pool = new Pool ({
-  host: '127.0.0.1',
+  host: 'sdc-db_c',
   port: 5432,
   database: 'reviews',
-  user: 'seanmcdaniel',
-  password: '',
-  max: 10,
+  user: 'postgres',
+  password: 'password',
+  max: 20,
   idleTimeoutMillis: 1000
 });
 

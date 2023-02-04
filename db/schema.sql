@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS reviews (
 
 CREATE INDEX id_of_product ON reviews(product_id);
 
+
+
 CREATE TABLE IF NOT EXISTS photos (
   id VARCHAR(1000),
   review_id VARCHAR(1000),
@@ -22,7 +24,9 @@ CREATE TABLE IF NOT EXISTS photos (
   product_id VARCHAR(1000)
 );
 
-CREATE INDEX p_id ON photos(product_id);
+CREATE INDEX r_id ON photos(review_id);
+
+
 
 CREATE TABLE IF NOT EXISTS char (
   id VARCHAR(1000),
@@ -33,3 +37,4 @@ CREATE TABLE IF NOT EXISTS char (
 );
 
 CREATE INDEX pc_id ON char(product_id);
+
