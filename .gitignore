@@ -5,4 +5,4 @@ client/dist/bundle.js
 coverage/
 .nyc_output/
 data
-sdc-api2.pem
+sdc-api3.pem
