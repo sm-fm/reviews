@@ -1,9 +1,10 @@
+require('dotenv').config();
 const Pool = require('pg-pool');
 const pool = new Pool ({
-  host: 'sdc-db_c',
+  host: 'ec2-18-225-35-250.us-east-2.compute.amazonaws.com',
   port: 5432,
   database: 'reviews',
-  user: 'postgres',
+  user: 'seanmcdaniel',
   password: 'password',
   max: 20,
   idleTimeoutMillis: 1000

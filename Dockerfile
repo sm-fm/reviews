@@ -1,4 +1,4 @@
-FROM node:16.19.0
+FROM --platform=linux/amd64 node:16.19.0
 
 WORKDIR /sdc-api
 

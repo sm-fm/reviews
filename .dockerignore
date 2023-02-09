@@ -5,3 +5,5 @@ __tests__
 .nyc_output
 
 client
+
+sdc-api2.pem
