@@ -3,6 +3,20 @@
 ## 💡 Overview
 I inherited this legacy code base with the following instructions: "The current backend system for this E-commerce site cannot withstand the increased traffic it is receiving, replace the API and database for the reviews service. Your other teammates will replace the other services." This was a monorepo, and we were tasked with also restructuring it to a microservices architecture. Below I will document my process as well as how I optimized it in production.
 
+The following repo is my service alone. I used k6 for stress testing locally and loaderio + New Relic for stress testing in production. I used NGINX for load-balancing and caching, however, you won't find the NGINX conf file in this repo because it was created and changed directly in my AWS instance. My final architecture looks like the following: 
+
+![Reviews Service System Design - Flowchart](https://user-images.githubusercontent.com/98621806/219970292-14376e0e-c883-45c1-ad7f-3796139c4626.jpeg)
+
+## 🎉 Highlights
+
+- Optimized SQL query execution times from 5,717ms to 0.06ms through json aggregation and table indexing 
+- Achieved the following metric improvements by horizontally scaling through fine-tuning NGINX's load balancing and caching:
+  - Lowered error rate from 66% for 1000 RPS to 0% for 10,000 RPS
+  - Lowered response time average from 4389ms fro 1000 RPS to 12ms for 10,000 RPS
+  - Improved throughput from 22,667/60k to 599,937/600k for 10,000 RPS
+- Leveraged Python/Pandas/NumPy to combine CSVs to improve and simplify the ETL process for over 19 million records
+- Converted monorepo to service-oriented architecture and deployed on AWS EC2 instances
+- Achieved 91% code coverage through Mocha, Chai, and Supertest
 
 ## ⚡️ Production Performance Improvements
 
